@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Back! - Cafe Meeting Room Booking</title>
+    <style>
+        /* --- General Reset & Page Setup --- */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            height: 100%;
+            overflow: hidden; /* Prevents scrollbars */
+        }
+        
+        /* --- Main Container & Layout (Flexbox for 2 columns) --- */
+        .login-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* --- Image/Visual Side (Left Column) --- */
+        .visual-side {
+            flex: 1; /* Takes up 50% of the space */
+            background-image: url('image_9413c9.jpg'); /* Replace with the actual image path */
+            background-size: cover;
+            background-position: center;
+            /* Creates the rounded corner effect on the top-left and bottom-left */
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* The image provided already has the visual-side content, so we just style the background. 
+           If you need to place a different image, you would use this approach. */
+
+        /* --- Form Side (Right Column) --- */
+        .form-side {
+            flex: 1; /* Takes up 50% of the space */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            background-color: #fcf6f4; /* Light pinkish background to match the image */
+            /* Creates the rounded corner effect on the top-right and bottom-right */
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 50%; /* Ensures it maintains 50% width when combined with flex: 1 */
+        }
+        
+        /* Inner box for the form content to give it a centered structure */
+        .login-box {
+            width: 80%;
+            max-width: 350px;
+            text-align: center;
+        }
+
+        /* --- Logo Styling --- */
+        .logo-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #f7e6e3; /* Light background for the logo */
+            border: 1px solid #c9c3c1;
+            margin: 0 auto 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* The 'R' logo style */
+            font-size: 3em;
+            font-weight: bold;
+            color: #6a4c6a; /* Darker color for the letter */
+            letter-spacing: -5px; /* Adjusting the letter spacing to look like the image */
+            font-style: italic;
+        }
+        
+        /* --- Text and Headers --- */
+        h1 {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        /* --- Form Elements --- */
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #d4c4d4;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1em;
+            background-color: white;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #6a4c6a;
+        }
+
+        /* Password Eye Icon Placeholder */
+        .password-eye {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            cursor: pointer;
+            font-style: normal; /* Removes italic from the icon text */
+            font-size: 1.2em;
+        }
+
+        /* --- Login Button --- */
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #795579; /* A deep, muted purple/taupe color */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .login-button:hover {
+            background-color: #6a4c6a;
+        }
+
+        .login-button span {
+            margin-right: 8px;
+        }
+        
+        /* --- Footer/Inquiries Text --- */
+        .inquiries-text {
+            position: absolute;
+            bottom: 40px;
+            color: #888;
+            font-size: 0.9em;
+            text-align: center;
+            width: 40%; /* Constrain to the form side's width */
+        }
+
+        .inquiries-text a {
+            color: #795579;
+            text-decoration: none;
+        }
+
+        /* Special handling for the curved sides when used with the visual-side image */
+        .rounded-container {
+            width: 80%; /* Adjust as needed */
+            height: 80vh; /* Adjust as needed */
+            display: flex;
+            background-color: white; /* Temporary background */
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Center the rounded container on the screen */
+        .page-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0; /* Page background color */
+        }
+    </style>
+</head>
+<body class="page-center">
+    <div class="rounded-container">
+        <div class="visual-side">
+             </div>
+
+        <div class="form-side">
+            <div class="login-box">
+                <div class="logo-circle">
+                    R
+                </div>
+
+                <h1>Welcome Back!</h1>
+                <p class="subtitle">please enter your details</p>
+
+                <form action="/login" method="POST">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="password" name="password" required>
+                            <span class="password-eye">👁</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="login-button">
+                        <span>Login</span> →
+                    </button>
+                </form>
+            </div>
+            
+            <p class="inquiries-text">
+                For inquiries, you can contact <a href="uychakriya002@gmail.com">uychakriya002@gmail.com</a> for assistance
+            </p>
+        </div>
+    </div>
+</body>
+</html>
