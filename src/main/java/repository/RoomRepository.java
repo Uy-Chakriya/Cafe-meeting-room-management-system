@@ -1,7 +1,8 @@
 package repository;
 
 import entity.Room;
-import org.springframework.data.jpa.repository.JpaRepository;
+// ENSURE THIS IMPORT EXISTS:
+import org.springframework.data.jpa.repository.JpaRepository; 
 
 public interface RoomRepository extends JpaRepository<Room, Long> {
     

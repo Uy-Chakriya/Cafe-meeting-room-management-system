@@ -1,6 +1,7 @@
 package repository;
 
 import entity.User;
+// ENSURE THIS IMPORT EXISTS:
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 

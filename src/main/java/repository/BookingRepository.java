@@ -5,11 +5,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+// FIX: Import the correct Spring Data JPA repository
+import org.springframework.data.jpa.repository.JpaRepository; 
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.cdi.JpaRepositoryExtension;
 import org.springframework.data.repository.query.Param;
 
-public interface BookingRepository extends JpaRepositoryExtension<Booking, Long> {
+// FIX: Extend JpaRepository instead of the CDI extension
+public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     // User Feature: View only their bookings
     List<Booking> findByUserIdOrderByDateAscStartTimeAsc(Long userId);
