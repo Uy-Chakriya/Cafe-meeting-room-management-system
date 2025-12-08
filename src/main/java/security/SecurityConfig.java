@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+// Removed: import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -40,7 +40,8 @@ public class SecurityConfig {
                 .permitAll()
             )
             .logout((logout) -> logout
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                // FIX: Use lambda to fix AntPathRequestMatcher deprecation
+                .logoutRequestMatcher(request -> request.getServletPath().equals("/logout"))
                 .permitAll()
                 .logoutSuccessUrl("/login?logout")
             )

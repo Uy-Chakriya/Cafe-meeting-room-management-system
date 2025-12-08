@@ -5,12 +5,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-// FIX: Import the correct Spring Data JPA repository
-import org.springframework.data.jpa.repository.JpaRepository; 
+import org.springframework.data.jpa.repository.JpaRepository; // CORRECTED IMPORT
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-// FIX: Extend JpaRepository instead of the CDI extension
+// CORRECTED INTERFACE EXTENSION
 public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     // User Feature: View only their bookings

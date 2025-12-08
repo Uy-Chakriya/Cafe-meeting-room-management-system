@@ -2,7 +2,6 @@ package service;
 
 import entity.User;
 import entity.User.Role;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,26 +15,29 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    // Creates default users if they don't exist
-    @PostConstruct
-    public void initializeDefaultUsers() {
-        if (userRepository.findByUsername("admin").isEmpty()) {
-            User admin = new User();
-            admin.setUsername("admin");
-            admin.setPassword(passwordEncoder.encode("adminpass")); 
-            admin.setRole(Role.ADMIN);
-            userRepository.save(admin);
-        }
-        if (userRepository.findByUsername("user").isEmpty()) {
-            User user = new User();
-            user.setUsername("user");
-            user.setPassword(passwordEncoder.encode("userpass"));
-            user.setRole(Role.USER);
-            userRepository.save(user);
-        }
-    }
+    // NOTE: The initializeDefaultUsers() method with @PostConstruct 
+    // has been removed here, as the logic is now handled by CommandLineRunner
+    // in CafeMeetingRoomBookingSystemApplication.java.
 
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+    
+    // Method to register a new user (used by AuthController and CommandLineRunner)
+    public User registerUser(User user) {
+        // Check for username uniqueness
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            throw new RuntimeException("Username already exists");
+        }
+        
+        // Encode password and set default role
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        
+        // Ensure the role is set if it hasn't been explicitly set (e.g., if creating a regular user)
+        if (user.getRole() == null) {
+            user.setRole(Role.USER); 
+        }
+        
+        return userRepository.save(user);
     }
 }
