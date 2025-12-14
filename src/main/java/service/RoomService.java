@@ -21,12 +21,10 @@ public class RoomService {
         return roomRepository.findById(id);
     }
 
-    // Admin: Add/Edit room
     public Room saveRoom(Room room) {
         return roomRepository.save(room);
     }
 
-    // Admin: Delete room
     public void deleteRoom(Long id) {
         roomRepository.deleteById(id);
     }

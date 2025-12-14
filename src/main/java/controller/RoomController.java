@@ -16,15 +16,13 @@ public class RoomController {
 
     private final RoomService roomService;
 
-    // GET /rooms (User: View list of rooms)
     @GetMapping({"/", "/rooms"})
     public String listRooms(Model model) {
         List<Room> rooms = roomService.findAllRooms();
         model.addAttribute("rooms", rooms);
-        return "user-home"; // Maps to src/main/resources/templates/user-home.html
+        return "user-home"; 
     }
 
-    // GET /rooms/{id} (Room Detail - redirect to calendar page for booking)
     @GetMapping("/rooms/{id}")
     public String viewRoomDetail(@PathVariable Long id, Model model) {
         Optional<Room> roomOpt = roomService.findRoomById(id);
@@ -32,6 +30,6 @@ public class RoomController {
             return "redirect:/rooms";
         }
         model.addAttribute("room", roomOpt.get());
-        return "book-room"; // Maps to src/main/resources/templates/book-room.html
+        return "book-room";
     }
 }

@@ -48,28 +48,25 @@ public class BookingController {
             bookingService.bookRoom(userId, roomId, date, startTime, endTime);
             return "redirect:/user/bookings?success"; 
         } catch (Exception e) {
-            // In a real app, you'd add a flash attribute here
             System.err.println("Booking Error: " + e.getMessage());
             return "redirect:/rooms/" + roomId + "?error=" + e.getMessage();
         }
     }
 
-    // GET /my-bookings (User: View only their bookings)
     @GetMapping("/user/bookings")
     public String viewMyBookings(Model model) {
         try {
             Long userId = getCurrentUserId();
             List<Booking> bookings = bookingService.findUserBookings(userId);
             model.addAttribute("bookings", bookings);
-            return "my-bookings"; // Maps to src/main/resources/templates/my-bookings.html
+            return "my-bookings"; 
         } catch (SecurityException e) {
             return "redirect:/login";
         }
     }
 
-    // GET /calendar (User: Calendar view, often linked from /rooms/{id})
     @GetMapping("/calendar")
     public String viewCalendar() {
-        return "book-room"; // Maps to src/main/resources/templates/book-room.html
+        return "book-room"; 
     }
 }

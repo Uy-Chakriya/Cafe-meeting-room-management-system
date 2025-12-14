@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-// Removed: import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -22,35 +21,28 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests((requests) -> requests
-                // Public access (CSS, Login Page, H2 Console)
                 .requestMatchers(
                     "/", "/login", "/css/**", "/js/**", "/images/**",
                     "/h2-console/**", "/error"
                 ).permitAll()
-                // Admin access control
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                // Authenticated users (USER and ADMIN) can access user features
                 .requestMatchers("/rooms/**", "/user/bookings", "/book", "/calendar").authenticated()
-                // Deny all other requests
                 .anyRequest().denyAll()
             )
             .formLogin((form) -> form
                 .loginPage("/login")
-                .defaultSuccessUrl("/rooms", true) // Redirect to room list on success
-                .permitAll()
+                .defaultSuccessUrl("/rooms", true) 
             )
             .logout((logout) -> logout
-                // FIX: Use lambda to fix AntPathRequestMatcher deprecation
                 .logoutRequestMatcher(request -> request.getServletPath().equals("/logout"))
                 .permitAll()
                 .logoutSuccessUrl("/login?logout")
             )
             .csrf((csrf) -> csrf
-                // Disable CSRF for H2 console frame for development
                 .ignoringRequestMatchers("/h2-console/**")
             )
             .headers((headers) -> headers
-                // Allow H2 console to be displayed in a frame
+
                 .frameOptions((frame) -> frame.sameOrigin())
             );
 
